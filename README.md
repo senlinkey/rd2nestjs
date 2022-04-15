@@ -78,5 +78,12 @@ Nest is [MIT licensed](LICENSE).
  npm i 
  class-validator class-transformer # dto 校验用
  @nestjs/mapped-types # ts 类型工具
+ @nestjs/typeorm typeorm pg
 
+```
+
+```sh
+up: 启动, -d: 以分离模式运行
+docker-compose up -d
+ # docker-compose db up -d 传递特定的服务, 不传就是所有
 ```
