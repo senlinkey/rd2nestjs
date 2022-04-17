@@ -3,6 +3,7 @@ import { Response } from "express";
 import { CoffeesService } from "@/coffees/coffees.service";
 import { CreateCoffeeDto } from "@/coffees/dto/create-coffee.dto";
 import { UpdateCoffeeDto } from "@/coffees/dto/update-coffee.dto";
+import { PaginationQueryDto } from "@/common/dto/pagination-query.dto";
 
 @Controller("coffees")
 export class CoffeesController {
@@ -10,13 +11,13 @@ export class CoffeesController {
   }
 
   @Get()
-  findAll(@Query() paginationQuery) {
-    const { limit, offset } = paginationQuery;
+  findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+    // const { limit, offset } = paginationQuery;
     // findAll(@Res() response: Response) {
     // return response.status(200).send(`This action returns all coffees`);
     // return `This action returns all coffees`;
     // return `This action returns all coffees. Limit: ${limit}, offset: ${offset}`;
-    return this.coffeeService.finAll();
+    return this.coffeeService.finAll(paginationQueryDto);
   }
 
   @Get(":id")
