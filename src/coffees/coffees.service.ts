@@ -74,6 +74,7 @@ export class CoffeesService {
 
   async recommendCoffee(coffee: Coffee) {
     const queryRunner = this.connection.createQueryRunner();
+
     try {
       coffee.recommendations++;
       const recommendEvent = new Event();
@@ -85,6 +86,8 @@ export class CoffeesService {
       await queryRunner.manager.save(recommendEvent);
       await queryRunner.connect();
       await queryRunner.startTransaction();
+
+      await queryRunner.commitTransaction();
     } catch (err) {
       queryRunner.rollbackTransaction();
     } finally {
