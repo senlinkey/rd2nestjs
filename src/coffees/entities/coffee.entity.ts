@@ -15,7 +15,8 @@ export class Coffee {
   @JoinTable()
   @ManyToMany(
     type => Flavor,
-    (flavor) => flavor.coffees
+    (flavor) => flavor.coffees,
+    { cascade: true } // 开启级联, 也可以设置为仅插入或更新,['insert', 'update']
   )
-  flavors: string[];
+  flavors: Flavor[];
 }
