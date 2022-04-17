@@ -3,6 +3,7 @@
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
   <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
@@ -86,4 +87,33 @@ Nest is [MIT licensed](LICENSE).
 up: 启动, -d: 以分离模式运行
 docker-compose up -d
  # docker-compose db up -d 传递特定的服务, 不传就是所有
+```
+
+## db 迁移
+
+```js
+// ormconfig.js
+module.exports = {
+  type: "postgres",
+  host: "localhost",
+  port: "5432",
+  username: "postgres",
+  password: "123456",
+  database: "postgres",
+  entities: ["dist/**/*.entity.js"],
+  migrations: ["dist/migrations/*.js"],
+  cli: {
+    migrationsDir: "src/migrations"
+  }
+};
+
+// npx typeorm migration:create -n CoffeeRefactor
+
+// up, down, 都很重要
+
+// npx typeorm migration:run  迁移
+// npx typeorm migration:revert 回滚
+
+//  npx typeorm migration:generate -n SchemeSync  自动生成
+
 ```
