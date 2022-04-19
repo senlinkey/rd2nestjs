@@ -117,3 +117,14 @@ module.exports = {
 //  npx typeorm migration:generate -n SchemeSync  自动生成
 
 ```
+
+## control providers Scope
+
+```text
+nest 中, 几乎所有的东西都是在传入的请求中共享,
+node.js 并不遵循请求/响应的多线程无状态模式,
+每个请求都由一个单独线程来处理,
+因此使用单例对应用程序来说是安全的,
+某种情况下, 使用 provider 为提供基于请求的生命周期
+@Injection() 的作用域机制允许我们获得所需的提供者生命周期
+```
