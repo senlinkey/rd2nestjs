@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { Coffee } from "@/coffees/entities/coffee.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Connection, Repository } from "typeorm";
@@ -6,16 +6,18 @@ import { CreateCoffeeDto } from "@/coffees/dto/create-coffee.dto";
 import { UpdateCoffeeDto } from "@/coffees/dto/update-coffee.dto";
 import { Flavor } from "@/coffees/entities/flavor.entity";
 import { PaginationQueryDto } from "@/common/dto/pagination-query.dto";
-import { query } from "express";
 import { Event } from "@/events/entities/event.entity";
+import { COFFEE_BRANDS } from "@/entities/coffees.constants";
 
 @Injectable()
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee) private readonly coffeeRepository: Repository<Coffee>,
     @InjectRepository(Flavor) private readonly flavorRepository: Repository<Flavor>,
-    private readonly connection: Connection
+    private readonly connection: Connection,
+    @Inject(COFFEE_BRANDS) coffeeBrands: string[] // 令牌用于查找依赖
   ) {
+    console.log(coffeeBrands);
   }
 
 
