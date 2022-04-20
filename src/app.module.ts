@@ -9,7 +9,10 @@ import { CoffeeRatingModule } from "@/coffee-rating/coffee-rating.module";
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      envFilePath: ".environment" //string | string[], 可以提供多个.env文件,有重复变量以第一个为准,
+      // ignoreEnvFile: true// 线上可能不需要.env, 可以使用 Heroku
+    }),
     CoffeesModule,
     TypeOrmModule.forRoot({
       type: "postgres",
