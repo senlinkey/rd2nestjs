@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException, Scope } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { Coffee } from "@/coffees/entities/coffee.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Connection, Repository } from "typeorm";
@@ -7,20 +7,23 @@ import { UpdateCoffeeDto } from "@/coffees/dto/update-coffee.dto";
 import { Flavor } from "@/coffees/entities/flavor.entity";
 import { PaginationQueryDto } from "@/common/dto/pagination-query.dto";
 import { Event } from "@/events/entities/event.entity";
-import { COFFEE_BRANDS } from "@/entities/coffees.constants";
+import { ConfigService } from "@nestjs/config";
 
-@Injectable({ scope: Scope.TRANSIENT }) // Scope.DEFAULT 默认单例,
+// @Injectable({ scope: Scope.TRANSIENT }) // Scope.DEFAULT 默认单例,
 //transient: 瞬态提供者不会在消费者之间共享,注入瞬态提供者的每个消费者都将收到
 // request-scoped: 为每个 incoming request 提供一个新的提供者实例, 请求处理完成后自动对实例进行垃圾回收
+@Injectable() // Scope.DEFAULT 默认单例,
 export class CoffeesService {
   constructor(
     @InjectRepository(Coffee) private readonly coffeeRepository: Repository<Coffee>,
     @InjectRepository(Flavor) private readonly flavorRepository: Repository<Flavor>,
     private readonly connection: Connection,
-    @Inject(COFFEE_BRANDS) coffeeBrands: string[] // 令牌用于查找依赖
+    // @Inject(COFFEE_BRANDS) coffeeBrands: string[] // 令牌用于查找依赖
+    private readonly configService: ConfigService
   ) {
-    console.log(coffeeBrands);
-    console.log("CoffeesService instantiated");
+    console.log(this.configService.get<string>("DATABASE_HOST","default_localhost"));
+    // console.log(coffeeBrands);
+    // console.log("CoffeesService instantiated");
   }
 
 

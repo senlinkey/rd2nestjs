@@ -6,11 +6,11 @@ import { Coffee } from "@/coffees/entities/coffee.entity";
 import { Flavor } from "@/coffees/entities/flavor.entity";
 import { Event } from "@/events/entities/event.entity";
 import { COFFEE_BRANDS } from "@/entities/coffees.constants";
-import { Connection } from "typeorm";
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   controllers: [CoffeesController], // 控制器
-  imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])], // 这个模块需要的其他模块
+  imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event]), ConfigModule], // 这个模块需要的其他模块
   exports: [CoffeesService], // 应该列出在任何地方都可用的 提供者(imports), // 别的模块导入了本模块, 想要使用本模块的东西, 必须导出
   providers: [
     CoffeesService,
@@ -42,7 +42,7 @@ import { Connection } from "typeorm";
     {
       provide: COFFEE_BRANDS,
       useFactory: () => ["buddy brew", "nescafe"]
-    }, // useFactory, 允许我们动态创建提供者, 如果需要将提供者的值基于各种其他依赖性, 值等. 工厂函数的"值"*返回*将被使用 由提供者令牌.
+    } // useFactory, 允许我们动态创建提供者, 如果需要将提供者的值基于各种其他依赖性, 值等. 工厂函数的"值"*返回*将被使用 由提供者令牌.
 
     // {
     //   provide: COFFEE_BRANDS,
