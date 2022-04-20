@@ -21,7 +21,9 @@ export class CoffeesService {
     // @Inject(COFFEE_BRANDS) coffeeBrands: string[] // 令牌用于查找依赖
     private readonly configService: ConfigService
   ) {
-    console.log(this.configService.get<string>("DATABASE_HOST","default_localhost"));
+
+    // console.log(this.configService.get<string>("DATABASE_HOST","default_localhost"));
+    console.log(this.configService.get("database.host","default_localhost"));
     // console.log(coffeeBrands);
     // console.log("CoffeesService instantiated");
   }
