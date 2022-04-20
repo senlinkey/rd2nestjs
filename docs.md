@@ -81,6 +81,8 @@ class-validator class-transformer # dto 校验用
 @nestjs/mapped-types # ts 类型工具
 @nestjs/typeorm typeorm pg
 @nestjs/config
+@hapi/joi
+@types/hapi__joi
 ```
 
 ```sh

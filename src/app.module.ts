@@ -6,12 +6,17 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { DatabaseModule } from "./database/database.module";
 import { ConfigModule } from "@nestjs/config";
 import { CoffeeRatingModule } from "@/coffee-rating/coffee-rating.module";
+import * as Joi from "@hapi/joi";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ".environment" //string | string[], 可以提供多个.env文件,有重复变量以第一个为准,
+      // envFilePath: ".environment" //string | string[], 可以提供多个.env文件,有重复变量以第一个为准,
       // ignoreEnvFile: true// 线上可能不需要.env, 可以使用 Heroku
+      validationSchema: Joi.object({
+        DATABASE_HOST: Joi.required(),
+        DATABASE_PORT: Joi.number().default(5432)
+      })
     }),
     CoffeesModule,
     TypeOrmModule.forRoot({
