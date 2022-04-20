@@ -8,10 +8,12 @@ import { DatabaseModule } from "@/database/database.module";
     DatabaseModule.register({
       type: "postgres",
       host: "localhost",
+      username: "postgres",
       password: "123456",
-      port: 5432,
+      port: 5432
     }),
-    CoffeesModule],
+    CoffeesModule
+  ],
   providers: [CoffeeRatingService]
 })
 export class CoffeeRatingModule {

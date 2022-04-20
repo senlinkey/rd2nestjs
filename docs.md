@@ -77,10 +77,10 @@ Nest is [MIT licensed](LICENSE).
 
 ```bash
  npm i 
- class-validator class-transformer # dto 校验用
- @nestjs/mapped-types # ts 类型工具
- @nestjs/typeorm typeorm pg
-
+class-validator class-transformer # dto 校验用
+@nestjs/mapped-types # ts 类型工具
+@nestjs/typeorm typeorm pg
+@nestjs/config
 ```
 
 ```sh
