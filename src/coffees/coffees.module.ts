@@ -7,10 +7,14 @@ import { Flavor } from "@/coffees/entities/flavor.entity";
 import { Event } from "@/events/entities/event.entity";
 import { COFFEE_BRANDS } from "@/entities/coffees.constants";
 import { ConfigModule } from "@nestjs/config";
+import coffeesConfig from "./config/coffees.config";
 
 @Module({
   controllers: [CoffeesController], // 控制器
-  imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event]), ConfigModule], // 这个模块需要的其他模块
+  imports: [
+    TypeOrmModule.forFeature([Coffee, Flavor, Event]),
+    ConfigModule.forFeature(coffeesConfig), // 部分配准, 允许部分注册, 而不是所有的加载在根模块中
+  ], // 这个模块需要的其他模块
   exports: [CoffeesService], // 应该列出在任何地方都可用的 提供者(imports), // 别的模块导入了本模块, 想要使用本模块的东西, 必须导出
   providers: [
     CoffeesService,

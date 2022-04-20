@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Inject, Injectable, NotFoundException } from "@nestjs/common";
 import { Coffee } from "@/coffees/entities/coffee.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Connection, Repository } from "typeorm";
@@ -7,7 +7,8 @@ import { UpdateCoffeeDto } from "@/coffees/dto/update-coffee.dto";
 import { Flavor } from "@/coffees/entities/flavor.entity";
 import { PaginationQueryDto } from "@/common/dto/pagination-query.dto";
 import { Event } from "@/events/entities/event.entity";
-import { ConfigService } from "@nestjs/config";
+import { ConfigType } from "@nestjs/config";
+import coffeesConfig from "./config/coffees.config";
 
 // @Injectable({ scope: Scope.TRANSIENT }) // Scope.DEFAULT 默认单例,
 //transient: 瞬态提供者不会在消费者之间共享,注入瞬态提供者的每个消费者都将收到
@@ -19,11 +20,18 @@ export class CoffeesService {
     @InjectRepository(Flavor) private readonly flavorRepository: Repository<Flavor>,
     private readonly connection: Connection,
     // @Inject(COFFEE_BRANDS) coffeeBrands: string[] // 令牌用于查找依赖
-    private readonly configService: ConfigService
+    // private readonly configService: ConfigService
+    @Inject(coffeesConfig.KEY)
+    private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>
   ) {
 
-    // console.log(this.configService.get<string>("DATABASE_HOST","default_localhost"));
-    console.log(this.configService.get("database.host","default_localhost"));
+    // console.log(this.configService.get<string>("DATABASE_HOST","default_localhost")); // 使用 env file
+    // console.log(this.configService.get("database.host","default_localhost"));// 使用 load
+    // const coffeeConfig = this.configService.get("coffees");
+    // console.log(coffeeConfig.foo);
+
+    console.log(coffeesConfiguration.foo);// 解决 scope, 和 类型安全
+
     // console.log(coffeeBrands);
     // console.log("CoffeesService instantiated");
   }
