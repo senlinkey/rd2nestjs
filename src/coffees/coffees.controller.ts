@@ -6,6 +6,7 @@ import { UpdateCoffeeDto } from "@/coffees/dto/update-coffee.dto";
 import { PaginationQueryDto } from "@/common/dto/pagination-query.dto";
 import { REQUEST } from "@nestjs/core";
 import { Public } from "@/common/decorators/public.decorator";
+import { ParseIntPipe } from "@/common/pipes/parse-int.pipe";
 
 @Controller("coffees")
 export class CoffeesController {
@@ -34,9 +35,10 @@ export class CoffeesController {
   }
 
   @Get(":id")
-  findOne(@Param("id") id: string) {
+  findOne(@Param("id", ParseIntPipe) id: number) {
+    console.log(typeof id);
     // return `This action returns #${id} coffee`;
-    return this.coffeeService.findOne(id);
+    return this.coffeeService.findOne("" + id);
   }
 
   @Post()
