@@ -6,6 +6,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { DatabaseModule } from "./database/database.module";
 import { ConfigModule } from "@nestjs/config";
 import { CoffeeRatingModule } from "@/coffee-rating/coffee-rating.module";
+import { CommonModule } from './common/common.module';
 import AppConfig from "@/config/app.config";
 
 @Module({
@@ -35,7 +36,8 @@ import AppConfig from "@/config/app.config";
     CoffeesModule,
 
     CoffeeRatingModule,
-    DatabaseModule
+    DatabaseModule,
+    CommonModule
   ],
   controllers: [AppController],
   providers: [

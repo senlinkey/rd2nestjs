@@ -5,6 +5,7 @@ import { CreateCoffeeDto } from "@/coffees/dto/create-coffee.dto";
 import { UpdateCoffeeDto } from "@/coffees/dto/update-coffee.dto";
 import { PaginationQueryDto } from "@/common/dto/pagination-query.dto";
 import { REQUEST } from "@nestjs/core";
+import { Public } from "@/common/decorators/public.decorator";
 
 @Controller("coffees")
 export class CoffeesController {
@@ -17,6 +18,8 @@ export class CoffeesController {
 
   }
 
+  @Public()
+  // @SetMetadata("isPublic", true)
   @Get()
   findAll(@Query() paginationQueryDto: PaginationQueryDto) {
     // const { limit, offset } = paginationQuery;

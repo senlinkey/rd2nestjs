@@ -17,7 +17,7 @@ async function bootstrap() {
   }));
 
   app.useGlobalFilters(new HttpExceptionFilter())
-  app.useGlobalGuards(new ApiKeyGuard())
+  // app.useGlobalGuards(new ApiKeyGuard()) // 删除, 因为该 guard需要依赖注入
   await app.listen(3000);
 }
 
