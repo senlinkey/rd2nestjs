@@ -8,6 +8,7 @@ import { REQUEST } from "@nestjs/core";
 import { Public } from "@/common/decorators/public.decorator";
 import { ParseIntPipe } from "@/common/pipes/parse-int.pipe";
 import { Protocol } from "@/common/decorators/protocol.decorator";
+import { ApiForbiddenResponse } from "@nestjs/swagger";
 
 @Controller("coffees")
 export class CoffeesController {
@@ -20,6 +21,8 @@ export class CoffeesController {
 
   }
 
+  // @ApiResponse({ status: 403, description: "Forbidden" })
+  @ApiForbiddenResponse({ description: "Forbidden" })
   @Public()
   // @SetMetadata("isPublic", true)
   @Get()
