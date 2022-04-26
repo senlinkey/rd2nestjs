@@ -8,8 +8,9 @@ import { REQUEST } from "@nestjs/core";
 import { Public } from "@/common/decorators/public.decorator";
 import { ParseIntPipe } from "@/common/pipes/parse-int.pipe";
 import { Protocol } from "@/common/decorators/protocol.decorator";
-import { ApiForbiddenResponse } from "@nestjs/swagger";
+import { ApiForbiddenResponse, ApiTags } from "@nestjs/swagger";
 
+@ApiTags("coffee")
 @Controller("coffees")
 export class CoffeesController {
   constructor(
