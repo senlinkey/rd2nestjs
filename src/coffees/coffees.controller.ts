@@ -7,6 +7,7 @@ import { PaginationQueryDto } from "@/common/dto/pagination-query.dto";
 import { REQUEST } from "@nestjs/core";
 import { Public } from "@/common/decorators/public.decorator";
 import { ParseIntPipe } from "@/common/pipes/parse-int.pipe";
+import { Protocol } from "@/common/decorators/protocol.decorator";
 
 @Controller("coffees")
 export class CoffeesController {
@@ -22,14 +23,14 @@ export class CoffeesController {
   @Public()
   // @SetMetadata("isPublic", true)
   @Get()
-  async findAll(@Query() paginationQueryDto: PaginationQueryDto) {
+  async findAll(@Query() paginationQueryDto: PaginationQueryDto, @Protocol("https") protocol: string) {
     // const { limit, offset } = paginationQuery;
     // findAll(@Res() response: Response) {
     // return response.status(200).send(`This action returns all coffees`);
     // return `This action returns all coffees`;
     // return `This action returns all coffees. Limit: ${limit}, offset: ${offset}`;
-
-    await new Promise(resolve => setTimeout(resolve, 5e3));
+    console.log("protocol", protocol);
+    // await new Promise(resolve => setTimeout(resolve, 5e3));
 
     return this.coffeeService.finAll(paginationQueryDto);
   }
