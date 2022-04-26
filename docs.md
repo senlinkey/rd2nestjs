@@ -83,6 +83,7 @@ class-validator class-transformer # dto 校验用
 @nestjs/config
 @hapi/joi
 @types/hapi__joi
+@nestjs/swagger swagger-ui-express
 ```
 
 ```sh
