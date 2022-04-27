@@ -21,8 +21,8 @@ export class CoffeesService {
     private readonly connection: Connection,
     // @Inject(COFFEE_BRANDS) coffeeBrands: string[] // 令牌用于查找依赖
     // private readonly configService: ConfigService
-    @Inject(coffeesConfig.KEY)
-    private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>
+    // @Inject(coffeesConfig.KEY)
+    // private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>
   ) {
 
     // console.log(this.configService.get<string>("DATABASE_HOST","default_localhost")); // 使用 env file
@@ -30,7 +30,7 @@ export class CoffeesService {
     // const coffeeConfig = this.configService.get("coffees");
     // console.log(coffeeConfig.foo);
 
-    console.log(coffeesConfiguration.foo);// 解决 scope, 和 类型安全
+    // console.log(coffeesConfiguration.foo);// 解决 scope, 和 类型安全
 
     // console.log(coffeeBrands);
     // console.log("CoffeesService instantiated");
