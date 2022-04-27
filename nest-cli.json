@@ -8,6 +8,6 @@
     "deleteOutDir": true,
     "plugins": [
       "@nestjs/swagger/plugin"
-    ]
+    ],
   }
 }
