@@ -1,8 +1,15 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException } from "@nestjs/common";
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+} from "@nestjs/common";
 import { Response } from "express";
 
 @Catch(HttpException) // 要抓的异常, 逗号隔开
-export class HttpExceptionFilter<T extends HttpException> implements ExceptionFilter {
+export class HttpExceptionFilter<T extends HttpException>
+  implements ExceptionFilter
+{
   catch(exception: T, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
@@ -17,7 +24,7 @@ export class HttpExceptionFilter<T extends HttpException> implements ExceptionFi
 
     response.status(status).json({
       ...error,
-      timestamp: new Date().toISOString()
-    })
+      timestamp: new Date().toISOString(),
+    });
   }
 }

@@ -21,9 +21,9 @@ export class DatabaseModule {
       providers: [
         {
           provide: "CONNECTION",
-          useValue: createConnection(options)
-        }
-      ]
+          useValue: createConnection(options),
+        },
+      ],
     };
   }
 }

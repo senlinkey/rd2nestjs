@@ -10,11 +10,10 @@ import { DatabaseModule } from "@/database/database.module";
       host: "localhost",
       username: "postgres",
       password: "123456",
-      port: 5432
+      port: 5432,
     }),
-    CoffeesModule
+    CoffeesModule,
   ],
-  providers: [CoffeeRatingService]
+  providers: [CoffeeRatingService],
 })
-export class CoffeeRatingModule {
-}
+export class CoffeeRatingModule {}

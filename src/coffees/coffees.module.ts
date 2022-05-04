@@ -45,8 +45,8 @@ import coffeesConfig from "./config/coffees.config";
     // },
     {
       provide: COFFEE_BRANDS,
-      useFactory: () => ["buddy brew", "nescafe"]
-    } // useFactory, 允许我们动态创建提供者, 如果需要将提供者的值基于各种其他依赖性, 值等. 工厂函数的"值"*返回*将被使用 由提供者令牌.
+      useFactory: () => ["buddy brew", "nescafe"],
+    }, // useFactory, 允许我们动态创建提供者, 如果需要将提供者的值基于各种其他依赖性, 值等. 工厂函数的"值"*返回*将被使用 由提供者令牌.
 
     // {
     //   provide: COFFEE_BRANDS,
@@ -57,10 +57,9 @@ import coffeesConfig from "./config/coffees.config";
     //     return coffeeBrands;
     //   },
     // }, // 我们不再担心竞争条件和许多其他常见的应用程序启动
-  ] // 此处任何提供程序都将仅在此模块本身可用, 除非添加到 exports 数组
+  ], // 此处任何提供程序都将仅在此模块本身可用, 除非添加到 exports 数组
 })
-export class CoffeesModule {
-}
+export class CoffeesModule {}
 
 // 无法注入不直接属于当前模块的提供者
 // 也无法注入不是从导入的模块导出的提供程序
@@ -77,4 +76,3 @@ export class CoffeeBrandsFactory {
     return ["buddy brew", "nescafe"];
   }
 }
-

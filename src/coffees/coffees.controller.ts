@@ -1,4 +1,16 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Patch, Post, Query } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from "@nestjs/common";
 import { Request } from "express";
 import { CoffeesService } from "@/coffees/coffees.service";
 import { CreateCoffeeDto } from "@/coffees/dto/create-coffee.dto";
@@ -16,10 +28,9 @@ export class CoffeesController {
   constructor(
     private readonly coffeeService: CoffeesService,
     //  REQUEST 范围提供程序一项额外的功能, 请求范围的提供者可以注入 original Request 对象, 访问特定信息很有用, headers, cookie, ip ...
-    @Inject(REQUEST) private readonly request: Request
+    @Inject(REQUEST) private readonly request: Request,
   ) {
     console.log("CoffeesController created");
-
   }
 
   // @ApiResponse({ status: 403, description: "Forbidden" })
@@ -27,7 +38,10 @@ export class CoffeesController {
   @Public()
   // @SetMetadata("isPublic", true)
   @Get()
-  async findAll(@Query() paginationQueryDto: PaginationQueryDto, @Protocol("https") protocol: string) {
+  async findAll(
+    @Query() paginationQueryDto: PaginationQueryDto,
+    @Protocol("https") protocol: string,
+  ) {
     // const { limit, offset } = paginationQuery;
     // findAll(@Res() response: Response) {
     // return response.status(200).send(`This action returns all coffees`);
@@ -65,5 +79,4 @@ export class CoffeesController {
     // return `This action removes #${id} coffee`;
     return this.coffeeService.remove(id);
   }
-
 }

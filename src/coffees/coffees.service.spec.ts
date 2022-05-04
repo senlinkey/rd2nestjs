@@ -6,11 +6,10 @@ import { Coffee } from "@/coffees/entities/coffee.entity";
 import { getRepositoryToken } from "@nestjs/typeorm";
 import { NotFoundException } from "@nestjs/common";
 
-
 type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
 const createMockRepository = <T = any>(): MockRepository<T> => ({
   findOne: jest.fn(),
-  create: jest.fn()
+  create: jest.fn(),
 });
 
 describe("CoffeeService", () => {
@@ -20,11 +19,18 @@ describe("CoffeeService", () => {
   // 设置阶段: 测试之前执行
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CoffeesService,
+      providers: [
+        CoffeesService,
         { provide: Connection, useValue: {} },
-        { provide: getRepositoryToken(Flavor), useValue: createMockRepository() },
-        { provide: getRepositoryToken(Coffee), useValue: createMockRepository() }
-      ]
+        {
+          provide: getRepositoryToken(Flavor),
+          useValue: createMockRepository(),
+        },
+        {
+          provide: getRepositoryToken(Coffee),
+          useValue: createMockRepository(),
+        },
+      ],
     }).compile();
 
     service = module.get<CoffeesService>(CoffeesService);
@@ -35,11 +41,9 @@ describe("CoffeeService", () => {
     expect(service).toBeDefined();
   });
 
-
   // beforeAll()
   // afterEach()
   // afterAll()
-
 
   describe("findOne", () => {
     describe("when coffee with ID exists", () => {

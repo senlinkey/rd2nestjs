@@ -11,5 +11,4 @@ export class SchemeSync1650170488268 implements MigrationInterface {
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`ALTER TABLE "coffee" DROP COLUMN "description"`);
   }
-  
 }

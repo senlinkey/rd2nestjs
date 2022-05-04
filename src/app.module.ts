@@ -6,13 +6,14 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { DatabaseModule } from "./database/database.module";
 import { ConfigModule } from "@nestjs/config";
 import { CoffeeRatingModule } from "@/coffee-rating/coffee-rating.module";
-import { CommonModule } from './common/common.module';
+import { CommonModule } from "./common/common.module";
 import AppConfig from "@/config/app.config";
 
 @Module({
   imports: [
     // TypeOrmModule.forRoot({ // throw error, 不应该有加载顺序的困扰
-    TypeOrmModule.forRootAsync({// 添加的异步配置将在应用程序中注册的每个模块被解析后 加载
+    TypeOrmModule.forRootAsync({
+      // 添加的异步配置将在应用程序中注册的每个模块被解析后 加载
       useFactory: () => ({
         type: "postgres",
         host: process.env.DATABASE_HOST,
@@ -21,8 +22,8 @@ import AppConfig from "@/config/app.config";
         password: process.env.DATABASE_PASSWORD,
         database: process.env.DATABASE_NAME,
         autoLoadEntities: true, // 自动加载 entity
-        synchronize: true // 生产请关闭, 确保我们的 TypeORM 实体在每次运行应用程序时都会与数据库同步
-      })
+        synchronize: true, // 生产请关闭, 确保我们的 TypeORM 实体在每次运行应用程序时都会与数据库同步
+      }),
     }),
     ConfigModule.forRoot({
       // envFilePath: ".environment" //string | string[], 可以提供多个.env文件,有重复变量以第一个为准,
@@ -31,23 +32,21 @@ import AppConfig from "@/config/app.config";
       //   DATABASE_HOST: Joi.required(),
       //   DATABASE_PORT: Joi.number().default(5432)
       // })
-      load: [AppConfig]
+      load: [AppConfig],
     }),
     CoffeesModule,
 
     CoffeeRatingModule,
     DatabaseModule,
-    CommonModule
+    CommonModule,
   ],
   controllers: [AppController],
   providers: [
-    AppService
+    AppService,
     // {
     //   provide: APP_PIPE,
     //   useClass: ValidationPipe
     // }
-  ]
+  ],
 })
-
-export class AppModule {
-}
+export class AppModule {}

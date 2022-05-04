@@ -7,8 +7,8 @@ import { LoggingMiddleware } from "@/common/middleware/logging.middleware";
 @Module({
   imports: [ConfigModule],
   providers: [
-    { provide: APP_GUARD, useClass: ApiKeyGuard } // 全局使用时, 不能使用依赖注入, 改为这种
-  ]
+    { provide: APP_GUARD, useClass: ApiKeyGuard }, // 全局使用时, 不能使用依赖注入, 改为这种
+  ],
 })
 export class CommonModule implements NestModule {
   configure(consumer: MiddlewareConsumer): any {

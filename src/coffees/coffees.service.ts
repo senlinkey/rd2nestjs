@@ -16,26 +16,24 @@ import coffeesConfig from "./config/coffees.config";
 @Injectable() // Scope.DEFAULT 默认单例,
 export class CoffeesService {
   constructor(
-    @InjectRepository(Coffee) private readonly coffeeRepository: Repository<Coffee>,
-    @InjectRepository(Flavor) private readonly flavorRepository: Repository<Flavor>,
+    @InjectRepository(Coffee)
+    private readonly coffeeRepository: Repository<Coffee>,
+    @InjectRepository(Flavor)
+    private readonly flavorRepository: Repository<Flavor>,
     private readonly connection: Connection,
-    // @Inject(COFFEE_BRANDS) coffeeBrands: string[] // 令牌用于查找依赖
-    // private readonly configService: ConfigService
-    // @Inject(coffeesConfig.KEY)
-    // private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>
-  ) {
-
+  ) // @Inject(COFFEE_BRANDS) coffeeBrands: string[] // 令牌用于查找依赖
+  // private readonly configService: ConfigService
+  // @Inject(coffeesConfig.KEY)
+  // private readonly coffeesConfiguration: ConfigType<typeof coffeesConfig>
+  {
     // console.log(this.configService.get<string>("DATABASE_HOST","default_localhost")); // 使用 env file
     // console.log(this.configService.get("database.host","default_localhost"));// 使用 load
     // const coffeeConfig = this.configService.get("coffees");
     // console.log(coffeeConfig.foo);
-
     // console.log(coffeesConfiguration.foo);// 解决 scope, 和 类型安全
-
     // console.log(coffeeBrands);
     // console.log("CoffeesService instantiated");
   }
-
 
   finAll(paginationQueryDto: PaginationQueryDto) {
     const { limit, offset } = paginationQueryDto;
@@ -43,14 +41,14 @@ export class CoffeesService {
     return this.coffeeRepository.find({
       relations: ["flavors"],
       skip: offset,
-      take: limit
+      take: limit,
     });
   }
 
   async findOne(id: string) {
     // throw "a random error";
     const coffee = await this.coffeeRepository.findOne(id, {
-      relations: ["flavors"]
+      relations: ["flavors"],
     });
     if (!coffee) {
       throw new NotFoundException(`Coffee #${id} not found`);
@@ -60,22 +58,28 @@ export class CoffeesService {
   }
 
   async create(createCoffeeDto: CreateCoffeeDto) {
-    const flavors = await Promise.all(createCoffeeDto.flavors.map(name => this.preloadFlavorByName(name)));
+    const flavors = await Promise.all(
+      createCoffeeDto.flavors.map((name) => this.preloadFlavorByName(name)),
+    );
     const coffee = this.coffeeRepository.create({
       ...createCoffeeDto,
-      flavors
+      flavors,
     });
     return this.coffeeRepository.save(coffee);
   }
 
   async update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
-    const flavors = updateCoffeeDto.flavors && await Promise.all(updateCoffeeDto.flavors.map(name => this.preloadFlavorByName(name)));
+    const flavors =
+      updateCoffeeDto.flavors &&
+      (await Promise.all(
+        updateCoffeeDto.flavors.map((name) => this.preloadFlavorByName(name)),
+      ));
 
     //preload: 会先在库中到ID 对应的数据, 再将传入的数据进行合并返回新的实体
     const coffee = await this.coffeeRepository.preload({
       id: +id,
       ...updateCoffeeDto,
-      flavors
+      flavors,
     });
 
     if (!coffee) {
