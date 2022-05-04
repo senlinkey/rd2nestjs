@@ -21,7 +21,6 @@
     "pretest:e2e": "docker-compose up -d test-db",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "posttest:e2e": "docker-compose stop test-db && docker-compose rm -rf test-db"
-
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",

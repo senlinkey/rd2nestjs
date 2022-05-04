@@ -35,7 +35,6 @@ import AppConfig from "@/config/app.config";
       load: [AppConfig],
     }),
     CoffeesModule,
-
     CoffeeRatingModule,
     DatabaseModule,
     CommonModule,
