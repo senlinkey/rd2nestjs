@@ -8,6 +8,7 @@ import { ConfigModule } from "@nestjs/config";
 import { CoffeeRatingModule } from "@/coffee-rating/coffee-rating.module";
 import { CommonModule } from "./common/common.module";
 import AppConfig from "@/config/app.config";
+import { MongooseModule } from "@nestjs/mongoose";
 
 @Module({
   imports: [
@@ -25,6 +26,9 @@ import AppConfig from "@/config/app.config";
         synchronize: true, // 生产请关闭, 确保我们的 TypeORM 实体在每次运行应用程序时都会与数据库同步
       }),
     }),
+
+    MongooseModule.forRoot('mongodb://localhost:27017/nest-iluvcoffee',),
+
     ConfigModule.forRoot({
       // envFilePath: ".environment" //string | string[], 可以提供多个.env文件,有重复变量以第一个为准,
       // ignoreEnvFile: true// 线上可能不需要.env, 可以使用 Heroku

@@ -84,6 +84,8 @@ class-validator class-transformer # dto 校验用
 @hapi/joi
 @types/hapi__joi
 @nestjs/swagger swagger-ui-express
+mongoose @nestjs/mongoose
+@types/mongoose
 ```
 
 ```sh
