@@ -12,10 +12,12 @@ export class Coffee extends Document { // 默认映射到 coffees 集合复数
   @Prop()
   brand: string;
 
+  @Prop({ default: 0 })
+  recommendations: number;
+
   @Prop([String])
   flavors: string[];
 }
 
 
-
-export  const CoffeeSchema = SchemaFactory.createForClass(Coffee)
+export const CoffeeSchema = SchemaFactory.createForClass(Coffee);
