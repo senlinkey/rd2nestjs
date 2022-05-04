@@ -1,13 +1,7 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { CoffeesModule } from "./coffees/coffees.module";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { DatabaseModule } from "./database/database.module";
-import { ConfigModule } from "@nestjs/config";
-import { CoffeeRatingModule } from "@/coffee-rating/coffee-rating.module";
-import { CommonModule } from "./common/common.module";
-import AppConfig from "@/config/app.config";
+import { CoffeesModule } from "./coffees2/coffees.module";
 import { MongooseModule } from "@nestjs/mongoose";
 
 @Module({
@@ -27,7 +21,8 @@ import { MongooseModule } from "@nestjs/mongoose";
     //   }),
     // }),
 
-    MongooseModule.forRoot('mongodb://localhost:27017/nest-iluvcoffee',),
+    MongooseModule.forRoot("mongodb://localhost:27017/nest-iluvcoffee"),
+
 
     // ConfigModule.forRoot({
     //   // envFilePath: ".environment" //string | string[], 可以提供多个.env文件,有重复变量以第一个为准,
@@ -41,15 +36,17 @@ import { MongooseModule } from "@nestjs/mongoose";
     // CoffeesModule,
     // CoffeeRatingModule,
     // DatabaseModule,
-    CommonModule,
+    CoffeesModule
+    // CommonModule,
   ],
   controllers: [AppController],
   providers: [
-    AppService,
+    AppService
     // {
     //   provide: APP_PIPE,
     //   useClass: ValidationPipe
     // }
-  ],
+  ]
 })
-export class AppModule {}
+export class AppModule {
+}
