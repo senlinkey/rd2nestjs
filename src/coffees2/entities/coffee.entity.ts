@@ -19,5 +19,4 @@ export class Coffee extends Document { // 默认映射到 coffees 集合复数
   flavors: string[];
 }
 
-
 export const CoffeeSchema = SchemaFactory.createForClass(Coffee);

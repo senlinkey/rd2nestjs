@@ -27,11 +27,15 @@ export class Event extends mongoose.Document {
   @Prop()
   type: string;
 
-  @Prop()
+  @Prop({ index: true })
   name: string;
 
   @Prop(mongoose.SchemaTypes.Mixed)
   payload: Record<string, any>;
 }
 
+//可在字段或 Schema 级别定义索引
 export const EventSchema = SchemaFactory.createForClass(Event);
+
+// 1, 按 name 升序, -1按 name降序排列
+EventSchema.index({ name: 1, type: -1 });
